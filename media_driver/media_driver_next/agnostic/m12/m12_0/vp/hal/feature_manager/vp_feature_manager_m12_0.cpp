@@ -1,5 +1,5 @@
 /*
-* Copyright (c) 2020, Intel Corporation
+* Copyright (c) 2021, Intel Corporation
 *
 * Permission is hereby granted, free of charge, to any person obtaining a
 * copy of this software and associated documentation files (the "Software"),
@@ -109,6 +109,12 @@ MOS_STATUS VPFeatureManagerM12_0::CheckFeatures(void * params, bool &bApgFuncSup
     if (pvpParams->pSrc[0]->pDenoiseParams                       &&
        (pvpParams->pSrc[0]->pDenoiseParams->bEnableChroma        ||
         pvpParams->pSrc[0]->pDenoiseParams->bEnableHVSDenoise))
+    {
+        return MOS_STATUS_SUCCESS;
+    }
+
+    // Disable 3DLUT in APO path.
+    if (pvpParams->pSrc[0]->p3DLutParams)
     {
         return MOS_STATUS_SUCCESS;
     }
